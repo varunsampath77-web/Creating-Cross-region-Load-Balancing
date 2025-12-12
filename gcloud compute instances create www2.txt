@@ -1,0 +1,12 @@
+gcloud compute instances create www-2 \
+    --image-family debian-11 \
+    --image-project debian-cloud \
+    --machine-type e2-micro \
+    --zone us-east4-b \
+    --tags http-tag \
+    --metadata startup-script="#! /bin/bash
+      apt-get update
+      apt-get install apache2 -y
+      service apache2 restart
+      echo '<!doctype html><html><body><h1>www-2</h1></body></html>' | tee /var/www/html/index.html
+"
